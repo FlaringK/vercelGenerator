@@ -23,7 +23,7 @@ async function genImage (req, res) {
   const canvas = createCanvas(650, 450);
   const ctx = canvas.getContext('2d');
 
-	ctx.drawImage(space, 50, 50);	
+	ctx.drawImage(space, 100, 0, 450, 450);	
 
 	// Send Canvas
 	res.send(await canvas.encode("png"));
