@@ -3,14 +3,13 @@ var path = require("path");
 const express = require("express");
 const app = express();
 
-app.get('/:id', genImage);
-app.get('/:id/:scott', genImage);
+app.get('/:name', genImage);
+// app.get('/:id/:scott', genImage);
 app.get('/', genImage);
 
 async function genImage (req, res) {
 	// Get params
-  let gameID = req.params.id ?? 620;
-  let scottID = req.params.scott ?? Math.floor(Math.random() * 1);
+  let name = req.params.name ?? "";
 
 	// Load image
 	let space = await loadImage(path.join(__dirname, `public`, `space.png`)).catch(() => "404");
@@ -23,7 +22,13 @@ async function genImage (req, res) {
   const canvas = createCanvas(650, 450);
   const ctx = canvas.getContext('2d');
 
-	ctx.drawImage(space, 100, 0, 450, 450);	
+	// Set fonts
+	ctx.font = "bold 48px 'courier new'";
+
+	// Draw img
+	ctx.drawImage(space, 100, 0, 450, 450);
+	ctx.fillText(name, 10, 10)
+	
 
 	// Send Canvas
 	res.send(await canvas.encode("png"));
