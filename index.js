@@ -49,7 +49,7 @@ async function genUTimage (req, res) {
 	textArray = processUTtext("testText")
 
 	// Create canvas
-  const canvas = createCanvas(160 * textArray.length, 586)
+  const canvas = createCanvas(586, 160 * textArray.length)
   const ctx = canvas.getContext('2d')
 
 	// Load assets
