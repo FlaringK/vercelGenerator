@@ -3,9 +3,9 @@ var path = require("path");
 const express = require("express");
 const app = express();
 
-app.get('/:name', genUTimage);
+app.get('/', genImage);
 // app.get('/:id/:scott', genImage);
-app.get('/', genUTimage);
+app.get('/undertale/:text', genUTimage);
 
 const colRegex = /color=[^\s]+/
 
@@ -39,14 +39,14 @@ async function genImage (req, res) {
 
 async function genUTimage (req, res) {
 
-	const testText = "! This is just color=red a test ooo now I'm red\nAnd this one which is really really really long and should take up at least 2 textboxes please, oh good thank you! I am very glad this worked and there's no * on this one\n!1 color=cyan And this one would have a cool expression if I loaded it\ncolor=#4ac925 B33 < color=#f2a400 cool kat\ncolor=lime color=white cool coloured *"
+	const inText = req.params.text ?? "%21%20This%20is%20just%20color%3Dred%20a%20test%20ooo%20now%20I%27m%20red%5CnAnd%20this%20one%20which%20is%20really%20really%20really%20long%20and%20should%20take%20up%20at%20least%202%20textboxes%20please%2C%20oh%20good%20thank%20you%21%20I%20am%20very%20glad%20this%20worked%20and%20there%27s%20no%20%2A%20on%20this%20one%5Cn%211%20color%3Dcyan%20And%20this%20one%20would%20have%20a%20cool%20expression%20if%20I%20loaded%20it%5Cncolor%3D%234ac925%20B33%20%3C%20color%3D%23f2a400%20cool%20kat%5Cncolor%3Dlime%20color%3Dwhite%20cool%20coloured%20%2A"
 
 	// Set img type
   res.set('Cache-Control', "public, max-age=300, s-maxage=600");
   res.set('Content-Type', 'image/png');
 
 	// Process Text
-	textArray = processUTtext(testText)
+	textArray = processUTtext(decodeURI(inText))
 
 	// Create canvas
   const canvas = createCanvas(586, 160 * textArray.length)
@@ -55,10 +55,6 @@ async function genUTimage (req, res) {
 	// Load assets
 	let faces = await loadImage(path.join(__dirname, `public`, `chara.png`)).catch(() => "404");
 	let textbox = await loadImage(path.join(__dirname, `public`, `tb_basic.png`)).catch(() => "404");
-
-	// const dtFont = new FontFace("dt", 'url("https://file.garden/X1htvgJ0DEp_tp-Z/MSPFA%20undertale/Fonts/DeterminationMonoWebRegular-Z5oq.ttf")')
-  // await dtFont.load()
-  // document.fonts.add(dtFont);
 
 	GlobalFonts.registerFromPath(
 		path.join(__dirname, `public`, `DeterminationMonoWebRegular-Z5oq.ttf`),
