@@ -3,11 +3,6 @@ var path = require("path");
 const express = require("express");
 const app = express();
 
-GlobalFonts.registerFromPath(
-  path.join(__dirname, `public`, `DeterminationMonoWebRegular-Z5oq.ttf`),
-  'dt',
-)
-
 app.get('/:name', genUTimage);
 // app.get('/:id/:scott', genImage);
 app.get('/', genUTimage);
@@ -61,9 +56,14 @@ async function genUTimage (req, res) {
 	let faces = await loadImage(path.join(__dirname, `public`, `chara.png`)).catch(() => "404");
 	let textbox = await loadImage(path.join(__dirname, `public`, `tb_basic.png`)).catch(() => "404");
 
-	const dtFont = new FontFace("dt", 'url("https://file.garden/X1htvgJ0DEp_tp-Z/MSPFA%20undertale/Fonts/DeterminationMonoWebRegular-Z5oq.ttf")')
-  await dtFont.load()
+	// const dtFont = new FontFace("dt", 'url("https://file.garden/X1htvgJ0DEp_tp-Z/MSPFA%20undertale/Fonts/DeterminationMonoWebRegular-Z5oq.ttf")')
+  // await dtFont.load()
   // document.fonts.add(dtFont);
+
+	GlobalFonts.registerFromPath(
+		path.join(__dirname, `public`, `DeterminationMonoWebRegular-Z5oq.ttf`),
+		'dt',
+	)
 	
 	ctx.textBaseline = 'alphabetic'
   ctx.font = "32px dt"
