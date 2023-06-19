@@ -46,7 +46,7 @@ async function genUTimage (req, res) {
   res.set('Content-Type', 'image/png');
 
 	// Process Text
-	textArray = processUTtext("testText")
+	textArray = processUTtext(testText)
 
 	// Create canvas
   const canvas = createCanvas(586, 160 * textArray.length)
