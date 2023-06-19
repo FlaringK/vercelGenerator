@@ -75,7 +75,7 @@ async function genUTimage (req, res) {
   textArray.forEach((boxText, i) => {
 
     if (boxText.expression) {
-      let exprIndex = /\d/.test(boxText.expression[0]) ? 8 : 0
+      let exprIndex = /\d/.test(boxText.expression[0]) ? parseInt(boxText.expression[0].replace(/[^0-9]/g, "")) : 0
       ctx.drawImage(faces, 0, 64 * exprIndex, 64, 64, 12, 14 + i * 160, 128, 128)
     }
     
