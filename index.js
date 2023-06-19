@@ -1,7 +1,12 @@
-var { createCanvas, loadImage } = require('@napi-rs/canvas');
+var { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
 var path = require("path");
 const express = require("express");
 const app = express();
+
+GlobalFonts.registerFromPath(
+  path.join(__dirname, `public`, `DeterminationMonoWebRegular-Z5oq.ttf`),
+  'dt',
+)
 
 app.get('/:name', genUTimage);
 // app.get('/:id/:scott', genImage);
