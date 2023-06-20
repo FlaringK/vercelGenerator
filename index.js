@@ -217,10 +217,10 @@ async function genHSimage (req, res) {
 
   // Get text colour
   let textColor = "black"
-  if (colRegex.test(text)) {
-    textColor = text.match(colRegex)[0].replace(/color=/i, "")
+  if (/color=[^\s]+/i.test(text)) {
+    textColor = text.match(/color=[^\s]+/i)[0].replace(/color=/i, "")
   }
-  text = text.replace(colRegex, "")
+  text = text.replace(/color=[^\s]+/i, "")
 
   // Set text params
   ctx.font = "16px CourierNewBold"
