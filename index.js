@@ -216,11 +216,7 @@ async function genHSimage (req, res) {
   ctx.drawImage(smallbox, pos.box, 380)
 
   // Get text colour
-  let textColor = "black"
-  if (/color=[^\s]+/i.test(text)) {
-    textColor = text.match(/color=[^\s]+/i)[0].replace(/color=/i, "")
-  }
-  text = text.replace(/color=[^\s]+/i, "")
+  let textColor = "#626262"
 
   // Set text params
   ctx.font = "16px CourierNewBold"
