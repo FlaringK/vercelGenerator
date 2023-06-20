@@ -194,6 +194,11 @@ async function genHSimage (req, res) {
   let smallbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxSmall.png`)).catch(() => "404");
   let faces = await loadImage(path.join(__dirname, `public`, `homestuck`, `ob_karkat.png`)).catch(() => "404");
 
+  GlobalFonts.registerFromPath(
+		path.join(__dirname, `public`, `homestuck`, `COURBD.TTF`),
+		'CourierNewBold',
+	)
+
   // Determin face and lean
   const startReg = /^!\d*\s+/
   let lean = 0
@@ -218,7 +223,7 @@ async function genHSimage (req, res) {
   }
 
   // Set text params
-  ctx.font = "bold 16px 'Courier New'"
+  ctx.font = "16px CourierNewBold"
   ctx.imageSmoothingEnabled = false;
   ctx.fillStyle = textColor
 
@@ -233,10 +238,12 @@ async function genHSimage (req, res) {
   // Draw Hashtag text
   ctx.fillStyle = "#000000"
 
-  let hashLines = getLines(ctx, "#" + textTypes[1], pos.width)
-  hashLines.forEach((line, i) => {
-    ctx.fillText(line, pos.text, (hashLines.length > 2 ? 400 : 408) + 16 * i)
-  })
+  if (textTypes[1]) {
+    let hashLines = getLines(ctx, "#" + textTypes[1], pos.width)
+    hashLines.forEach((line, i) => {
+      ctx.fillText(line, pos.text, (hashLines.length > 2 ? 400 : 408) + 16 * i)
+    })
+  }
 
   // Draw Character
   let sprite = { x: 175, y: 240 }
