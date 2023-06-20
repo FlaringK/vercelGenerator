@@ -7,6 +7,7 @@ app.get('/', genImage);
 // app.get('/:id/:scott', genImage);
 app.get('/undertale/:text', genUTimage);
 app.get('/homestuck/:text', genHSimage);
+app.get('/homestuck/:char/:text', genHSimage);
 
 const colRegex = /color=[^\s]+/i
 
@@ -167,7 +168,13 @@ let processUTtext = inText => {
 
 async function genHSimage (req, res) {
 
+  const characters = {
+    karkat: { col: "#626262", sprite: "ob_karkat.png" },
+    rose: { col: "#b536da", sprite: "ob_rose.png" }
+  }
+
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
+  const char = req.params.char ?? "karkat"
 
   // Set img type
   res.set('Cache-Control', "public, max-age=300, s-maxage=600");
@@ -192,7 +199,7 @@ async function genHSimage (req, res) {
   // get images
   let bigbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxBig.png`)).catch(() => "404");
   let smallbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxSmall.png`)).catch(() => "404");
-  let faces = await loadImage(path.join(__dirname, `public`, `homestuck`, `ob_karkat.png`)).catch(() => "404");
+  let faces = await loadImage(path.join(__dirname, `public`, `homestuck`, characters[char].sprite)).catch(() => "404");
 
   GlobalFonts.registerFromPath(
 		path.join(__dirname, `public`, `homestuck`, `COURBD.TTF`),
@@ -216,7 +223,7 @@ async function genHSimage (req, res) {
   ctx.drawImage(smallbox, pos.box, 380)
 
   // Get text colour
-  let textColor = "#626262"
+  let textColor = lean ? characters[char].col : "black"
 
   // Set text params
   ctx.font = "16px CourierNewBold"
