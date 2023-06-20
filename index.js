@@ -6,8 +6,9 @@ const app = express();
 app.get('/', genImage);
 // app.get('/:id/:scott', genImage);
 app.get('/undertale/:text', genUTimage);
+app.get('/homestuck/:text', genHSimage);
 
-const colRegex = /color=[^\s]+/
+const colRegex = /color=[^\s]+/i
 
 async function genImage (req, res) {
 	// Get params
@@ -37,9 +38,11 @@ async function genImage (req, res) {
 	return;
 }
 
+/* UNDERTALE */
+
 async function genUTimage (req, res) {
 
-	const inText = req.params.text ?? "%21%20This%20is%20just%20color%3Dred%20a%20test%20ooo%20now%20I%27m%20red%5CnAnd%20this%20one%20which%20is%20really%20really%20really%20long%20and%20should%20take%20up%20at%20least%202%20textboxes%20please%2C%20oh%20good%20thank%20you%21%20I%20am%20very%20glad%20this%20worked%20and%20there%27s%20no%20%2A%20on%20this%20one%5Cn%211%20color%3Dcyan%20And%20this%20one%20would%20have%20a%20cool%20expression%20if%20I%20loaded%20it%5Cncolor%3D%234ac925%20B33%20%3C%20color%3D%23f2a400%20cool%20kat%5Cncolor%3Dlime%20color%3Dwhite%20cool%20coloured%20%2A"
+	const inText = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
 
 	// Set img type
   res.set('Cache-Control', "public, max-age=300, s-maxage=600");
@@ -85,7 +88,7 @@ async function genUTimage (req, res) {
       let letterCount = 0
       line.split(" ").forEach(word => {
         if (colRegex.test(word)) {
-          ctx.fillStyle = word.replace("color=", "")
+          ctx.fillStyle = word.replace(/color=/i, "")
         } else {
           ctx.fillText(word + " ", lineStart + letterCount * 16, 50 + i * 160 + j * 38)
           letterCount += word.length + 1
@@ -158,6 +161,113 @@ let processUTtext = inText => {
 
 	return textArray
 
+}
+
+/* HOMESTUCK */
+
+async function genHSimage (req, res) {
+
+  const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
+
+  // Set img type
+  res.set('Cache-Control', "public, max-age=300, s-maxage=600");
+  res.set('Content-Type', 'image/png');
+
+  // Create canvas
+  const canvas = createCanvas(650, 450);
+  const ctx = canvas.getContext('2d');
+
+  const positions = [
+    { // Center
+      text: 84, width: 475, box: 56
+    },
+    { // left
+      text: 84, width: 360, box: 56
+    },
+    { // right
+      text: 250, width: 360, box: 90
+    },
+  ]
+
+  // get images
+  let bigbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxBig.png`)).catch(() => "404");
+  let smallbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxSmall.png`)).catch(() => "404");
+  let faces = await loadImage(path.join(__dirname, `public`, `homestuck`, `ob_karkat.png`)).catch(() => "404");
+
+  // Determin face and lean
+  const startReg = /^!\d*\s+/
+  let lean = 0
+  let face = 0
+  if (startReg.test(text)) {
+    lean = 2
+    face = parseInt(text.match(startReg)[0].replace(/[^0-9]/g, ""))
+    face = face ? face : 0
+  }
+
+  const pos = positions[lean]
+
+  // Draw Textbox
+  ctx.drawImage(bigbox, pos.box, 110)
+  ctx.drawImage(smallbox, pos.box, 380)
+
+  // Get text colour
+  let textColor = "black"
+  if (colRegex.test(text)) {
+    textColor = text.match(colRegex)[0].replace(/color=/i, "")
+    text = text.replace(colRegex, "")
+  }
+
+  // Set text params
+  ctx.font = "bold 16px 'Courier New'"
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = textColor
+
+  // Draw main text
+  let textTypes = text.split(/#(.*)/s)
+
+  let bodyLines = getLines(ctx, textTypes[0].replace(startReg, ""), pos.width)
+  bodyLines.forEach((line, i) => {
+    ctx.fillText(line, pos.text, 150 + 16 * i)
+  })
+
+  // Draw Hashtag text
+  ctx.fillStyle = "#000000"
+
+  let hashLines = getLines(ctx, "#" + textTypes[1], pos.width)
+  hashLines.forEach((line, i) => {
+    ctx.fillText(line, pos.text, (hashLines.length > 2 ? 400 : 408) + 16 * i)
+  })
+
+  // Draw Character
+  let sprite = { x: 175, y: 240 }
+
+  if (lean == 2) {
+    ctx.drawImage(faces, 0, sprite.y * face, sprite.x, sprite.y, -80, -15, sprite.x * 2, sprite.y * 2)
+  }
+
+  // Send Canvas
+	res.send(await canvas.encode("png"));
+	return;
+}
+
+// https://stackoverflow.com/questions/2936112/text-wrap-in-a-canvas-element
+const getLines = (ctx, text, maxWidth) => {
+  var words = text.split(" ");
+  var lines = [];
+  var currentLine = words[0];
+
+  for (var i = 1; i < words.length; i++) {
+      var word = words[i];
+      var width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) {
+          currentLine += " " + word;
+      } else {
+          lines.push(currentLine);
+          currentLine = word;
+      }
+  }
+  lines.push(currentLine);
+  return lines;
 }
 
 const PORT = process.env.PORT || 8080;
