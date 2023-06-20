@@ -226,7 +226,7 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let bodyLines = getLines(ctx, textTypes[0].replace(startReg, ""), pos.width)
+  let bodyLines = splitLines(ctx, textTypes[0].replace(startReg, ""), pos.width)
   bodyLines.forEach((line, i) => {
     ctx.fillText(line, pos.text, 150 + 16 * i)
   })
@@ -235,7 +235,7 @@ async function genHSimage (req, res) {
   ctx.fillStyle = "#000000"
 
   if (textTypes[1]) {
-    let hashLines = getLines(ctx, "#" + textTypes[1], pos.width)
+    let hashLines = splitLines(ctx, "#" + textTypes[1], pos.width)
     hashLines.forEach((line, i) => {
       ctx.fillText(line, pos.text, (hashLines.length > 2 ? 400 : 408) + 16 * i)
     })
@@ -251,6 +251,17 @@ async function genHSimage (req, res) {
   // Send Canvas
 	res.send(await canvas.encode("png"));
 	return;
+}
+
+const splitLines = (ctx, text, maxWidth) => {
+  let strings = text.split("\n")
+  let lines = []
+
+  strings.forEach(string => {
+    lines = lines.concat(getLines(ctx, string, maxWidth))
+  })
+
+  return lines
 }
 
 // https://stackoverflow.com/questions/2936112/text-wrap-in-a-canvas-element
