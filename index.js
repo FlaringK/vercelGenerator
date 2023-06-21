@@ -168,13 +168,19 @@ let processUTtext = inText => {
 
 async function genHSimage (req, res) {
 
+  const spriteSizes = {
+    ob: { x: 175, y: 240, ox: -80, oy: -15 },
+    bdth: { x: 260, y: 325, ox: -80, oy: 0 }
+  }
+
   const characters = {
-    karkat: { col: "#626262", sprite: "ob_karkat.png" },
-    rose: { col: "#b536da", sprite: "ob_rose.png" }
+    karkat: { col: "#626262", sprite: "ob_karkat.png", lean: 2, dim: spriteSizes.ob },
+    rose: { col: "#b536da", sprite: "ob_rose.png", lean: 2, dim: spriteSizes.ob },
+    bdthJune: { col: "#b536da", sprite: "bdth_june.png", lean: 1, dim: spriteSizes.bdth },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
-  const char = req.params.char ?? "karkat"
+  const char = characters[req.params.char] ?? characters.karkat
 
   // Set img type
   res.set('Cache-Control', "public, max-age=300, s-maxage=600");
@@ -189,7 +195,7 @@ async function genHSimage (req, res) {
       text: 84, width: 475, box: 56
     },
     { // left
-      text: 84, width: 360, box: 56
+      text: 48, width: 360, box: 18
     },
     { // right
       text: 250, width: 360, box: 90
@@ -199,7 +205,7 @@ async function genHSimage (req, res) {
   // get images
   let bigbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxBig.png`)).catch(() => "404");
   let smallbox = await loadImage(path.join(__dirname, `public`, `homestuck`, `dialogBoxSmall.png`)).catch(() => "404");
-  let faces = await loadImage(path.join(__dirname, `public`, `homestuck`, characters[char].sprite)).catch(() => "404");
+  let faces = await loadImage(path.join(__dirname, `public`, `homestuck`, char.sprite)).catch(() => "404");
 
   GlobalFonts.registerFromPath(
 		path.join(__dirname, `public`, `homestuck`, `COURBD.TTF`),
@@ -211,7 +217,7 @@ async function genHSimage (req, res) {
   let lean = 0
   let face = 0
   if (startReg.test(text)) {
-    lean = 2
+    lean = char.lean
     face = parseInt(text.match(startReg)[0].replace(/[^0-9]/g, ""))
     face = face ? face : 0
   }
@@ -223,7 +229,7 @@ async function genHSimage (req, res) {
   ctx.drawImage(smallbox, pos.box, 380)
 
   // Get text colour
-  let textColor = lean ? characters[char].col : "black"
+  let textColor = lean ? char.col : "black"
 
   // Set text params
   ctx.font = "16px CourierNewBold"
@@ -249,10 +255,10 @@ async function genHSimage (req, res) {
   }
 
   // Draw Character
-  let sprite = { x: 175, y: 240 }
+  let sprite = char.dim
 
-  if (lean == 2) {
-    ctx.drawImage(faces, 0, sprite.y * face, sprite.x, sprite.y, -80, -15, sprite.x * 2, sprite.y * 2)
+  if (lean) {
+    ctx.drawImage(faces, 0, sprite.y * face, sprite.x, sprite.y, sprite.ox, sprite.oy, sprite.x * 2, sprite.y * 2)
   }
 
   // Send Canvas
