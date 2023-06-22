@@ -190,9 +190,9 @@ async function genHSimage (req, res) {
 
   const characters = {
     default: { col: "black", sprite: "ob_karkat.png", dim: dimentions.default },
-    karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob },
-    rose: { col: "#b536da", sprite: "ob_rose.png", dim: dimentions.ob },
-    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth },
+    karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob, handle: "KARKAT" },
+    rose: { col: "#b536da", sprite: "ob_rose.png", dim: dimentions.ob, handle: "ROSE" },
+    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
@@ -236,7 +236,12 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let bodyLines = splitLines(ctx, textTypes[0].replace(startReg, ""), pos.width)
+  let mainlines = textTypes[0]
+  if (char.handle) {
+    mainlines = mainlines.replace(/(\n|^)/g, "$1" + char.handle + ": ")
+  }
+
+  let bodyLines = splitLines(ctx, mainlines.replace(startReg, ""), pos.width)
   bodyLines.forEach((line, i) => {
     ctx.fillText(line, pos.text, pos.height + 40 + char.dim.lineHeight * i)
   })
