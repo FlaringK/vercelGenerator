@@ -189,13 +189,14 @@ async function genHSimage (req, res) {
   }
 
   const characters = {
-    karkat: { col: "#626262", sprite: "ob_karkat.png", lean: 2, dim: dimentions.ob },
-    rose: { col: "#b536da", sprite: "ob_rose.png", lean: 2, dim: dimentions.ob },
-    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", lean: 1, dim: dimentions.bdth },
+    default: { col: "black", sprite: "ob_karkat.png", dim: dimentions.default },
+    karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob },
+    rose: { col: "#b536da", sprite: "ob_rose.png", dim: dimentions.ob },
+    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
-  const char = characters[req.params.char] ?? characters.karkat
+  const char = characters[req.params.char] ?? characters.default
 
   // Create canvas
   const canvas = createCanvas(char.dim.width, char.dim.height);
@@ -208,15 +209,14 @@ async function genHSimage (req, res) {
 
   GlobalFonts.registerFromPath(
 		path.join(__dirname, `public`, `homestuck`, `COURBD.TTF`),
-		'CourierNewBold',
+		"'Courier New'",
 	)
 
-  // Determin face and lean
+  // EVERYTHING PAST THIS POINT IS IDENTICAL
+  // Determin face
   const startReg = /^!\d*\s+/
-  let lean = 0
   let face = 0
   if (startReg.test(text)) {
-    lean = char.lean
     face = parseInt(text.match(startReg)[0].replace(/[^0-9]/g, ""))
     face = face ? face : 0
   }
@@ -228,13 +228,10 @@ async function genHSimage (req, res) {
   ctx.drawImage(bigbox, pos.box, pos.height)
   ctx.drawImage(smallbox, pos.box, pos.height + 270)
 
-  // Get text colour
-  let textColor = lean ? char.col : "black"
-
   // Draw text
-  ctx.font = "16px CourierNewBold"
+  ctx.font = "bold 16px 'Courier New'"
   ctx.imageSmoothingEnabled = false;
-  ctx.fillStyle = textColor
+  ctx.fillStyle = char.col
 
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
@@ -257,9 +254,7 @@ async function genHSimage (req, res) {
   // Draw Character
   let sprite = char.dim
 
-  if (lean) {
-    ctx.drawImage(faces, 0, sprite.y * face, sprite.x, sprite.y, sprite.ox, sprite.oy, sprite.x * sprite.scale, sprite.y * sprite.scale)
-  }
+  ctx.drawImage(faces, 0, sprite.y * face, sprite.x, sprite.y, sprite.ox, sprite.oy, sprite.x * sprite.scale, sprite.y * sprite.scale)
 
   // Send Canvas
 	res.send(await canvas.encode("png"));
