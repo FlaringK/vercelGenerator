@@ -236,12 +236,12 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let mainlines = textTypes[0]
+  let mainlines = textTypes[0].replace(startReg, "")
   if (char.handle) {
     mainlines = mainlines.replace(/(\n|^)/g, "$1" + char.handle + ": ")
   }
 
-  let bodyLines = splitLines(ctx, mainlines.replace(startReg, ""), pos.width)
+  let bodyLines = splitLines(ctx, mainlines, pos.width)
   bodyLines.forEach((line, i) => {
     ctx.fillText(line, pos.text, pos.height + 40 + char.dim.lineHeight * i)
   })
