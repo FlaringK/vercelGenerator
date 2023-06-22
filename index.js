@@ -175,7 +175,7 @@ async function genHSimage (req, res) {
   // Consts
   const dimentions = {
     default: {
-      x: 175, y: 240, ox: -80, oy: -15, scale: 2, width: 650, height: 450,
+      x: 175, y: 240, ox: -80, oy: -15, scale: 0, width: 650, height: 450,
       pos: { text: 84, width: 475, box: 56, height: 110, }, lineHeight: 16,
     },
     ob: { 
