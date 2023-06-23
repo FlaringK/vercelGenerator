@@ -179,7 +179,7 @@ async function genHSimage (req, res) {
       pos: { text: 84, width: 475, box: 56, height: 110, }, lineHeight: 16,
     },
     ob: { 
-      x: 175, y: 240, ox: -80, oy: -15, scale: 2, width: 650, height: 450,
+      x: 180, y: 240, ox: -90, oy: -15, scale: 2, width: 650, height: 450,
       pos: { text: 250, width: 360, box: 90, height: 110, }, lineHeight: 16,
     },
     bdth: { 
