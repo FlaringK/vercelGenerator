@@ -190,8 +190,13 @@ async function genHSimage (req, res) {
 
   const characters = {
     default: { col: "black", sprite: "ob_karkat.png", dim: dimentions.default },
+    
     karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob, handle: "KARKAT" },
     rose: { col: "#b536da", sprite: "ob_rose.png", dim: dimentions.ob, handle: "ROSE" },
+    kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
+    dave: { col: "#e00707", sprite: "ob_dave.png", dim: dimentions.ob, handle: "DAVE" },
+    nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
+
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
   }
 
