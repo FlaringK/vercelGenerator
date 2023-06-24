@@ -191,9 +191,13 @@ async function genHSimage (req, res) {
     }
   }
 
+  dimentions.bdthSS = dimentions.bdth
+  dimentions.bdthSS.y = 324
+  dimentions.bdthSS.oy = 2
+
   dimentions.bdthS = dimentions.bdth
   dimentions.bdthS.y = 323
-  dimentions.bdthS.oy = 2
+  dimentions.bdthS.oy = 4
 
   const credits = {
     bdth: "Burning down the house sprites by Victoria"
@@ -208,9 +212,9 @@ async function genHSimage (req, res) {
     nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
     kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
 
-    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
-    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
+    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdthSS, handle: "JUNE" },
+    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdthSS, handle: "ROSE" },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdthSS, handle: "DAVE" },
     bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdthS, handle: "JADE" },
     bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdthS, handle: "KANAYA" },
   }
