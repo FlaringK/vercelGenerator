@@ -173,7 +173,7 @@ async function genHSimage (req, res) {
   res.set('Content-Type', 'image/png');
 
   // Consts
-  const dimentions = {
+  let dimentions = {
     default: {
       x: 0, y: 0, ox: 0, oy: 0, scale: 0, 
       width: 650, height: 450, lineHeight: 16,
@@ -191,6 +191,10 @@ async function genHSimage (req, res) {
     }
   }
 
+  dimentions.bdthS = dimentions.bdth
+  dimentions.bdthS.y = 323
+  dimentions.bdthS.oy = 2
+
   const credits = {
     bdth: "Burning down the house sprites by Victoria"
   }
@@ -207,8 +211,8 @@ async function genHSimage (req, res) {
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
     bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
     bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
-    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
-    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdthS, handle: "JADE" },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdthS, handle: "KANAYA" },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
