@@ -252,7 +252,7 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let mainlines = textTypes[0].replace(startReg, "") + " " + char.dim.y + " " + dimentions.bdth.y + " " + dimentions.bdthFix.y
+  let mainlines = textTypes[0].replace(startReg, "")
   if (char.handle) {
     mainlines = mainlines.replace(/(\n|^)/g, "$1" + char.handle + ": ")
   }
