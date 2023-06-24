@@ -192,7 +192,7 @@ async function genHSimage (req, res) {
   }
 
   dimentions.bdthSS = dimentions.bdth
-  dimentions.bdthSS.y = 324
+  dimentions.bdthSS.y = 326
   dimentions.bdthSS.oy = 2
 
   dimentions.bdthS = dimentions.bdth
@@ -212,11 +212,11 @@ async function genHSimage (req, res) {
     nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
     kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
 
-    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdthSS, handle: "JUNE" },
-    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdthSS, handle: "ROSE" },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdthSS, handle: "DAVE" },
-    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdthS, handle: "JADE" },
-    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdthS, handle: "KANAYA" },
+    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
+    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
