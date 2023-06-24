@@ -188,6 +188,11 @@ async function genHSimage (req, res) {
       x: 375, y: 325, ox: 360, oy: 0, scale: 2, 
       width: 930, height: 650, lineHeight: 20,
       pos: { text: 48, width: 400, box: 18, height: 180, }, 
+    },
+    bdthFix: { 
+      x: 375, y: 325, ox: 360, oy: 0, scale: 2, 
+      width: 930, height: 650, lineHeight: 20,
+      pos: { text: 48, width: 400, box: 18, height: 180, }, 
     }
   }
 
@@ -212,11 +217,11 @@ async function genHSimage (req, res) {
     nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
     kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
 
-    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
-    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
-    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
-    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
+    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdthFix, handle: "JUNE" },
+    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdthFix, handle: "ROSE" },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdthFix, handle: "DAVE" },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdthFix, handle: "JADE" },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdthFix, handle: "KANAYA" },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
@@ -260,7 +265,7 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let mainlines = textTypes[0].replace(startReg, "") + " " + char.dim.y + " " + dimentions.bdth.y
+  let mainlines = textTypes[0].replace(startReg, "") + " " + char.dim.y + " " + dimentions.bdth.y + " " + dimentions.bdthFix.y
   if (char.handle) {
     mainlines = mainlines.replace(/(\n|^)/g, "$1" + char.handle + ": ")
   }
