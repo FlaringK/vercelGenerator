@@ -214,7 +214,7 @@ async function genHSimage (req, res) {
 
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
     bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave_.png", dim: dimentions.bdthSS, handle: "DAVE" },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
     bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
     bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
   }
@@ -260,7 +260,7 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let mainlines = textTypes[0].replace(startReg, "")
+  let mainlines = textTypes[0].replace(startReg, "") + char.dim.y
   if (char.handle) {
     mainlines = mainlines.replace(/(\n|^)/g, "$1" + char.handle + ": ")
   }
