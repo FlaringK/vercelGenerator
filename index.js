@@ -196,14 +196,6 @@ async function genHSimage (req, res) {
     }
   }
 
-  dimentions.bdthSS = dimentions.bdth
-  dimentions.bdthSS.y = 325
-  dimentions.bdthSS.oy = 0
-
-  dimentions.bdthS = dimentions.bdth
-  dimentions.bdthS.y = 323
-  dimentions.bdthS.oy = 4
-
   const credits = {
     bdth: "Burning down the house sprites by Victoria"
   }
