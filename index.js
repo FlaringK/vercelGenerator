@@ -175,29 +175,40 @@ async function genHSimage (req, res) {
   // Consts
   const dimentions = {
     default: {
-      x: 175, y: 240, ox: -80, oy: -15, scale: 0, width: 650, height: 450,
-      pos: { text: 84, width: 475, box: 56, height: 110, }, lineHeight: 16,
+      x: 0, y: 0, ox: 0, oy: 0, scale: 0, 
+      width: 650, height: 450, lineHeight: 16,
+      pos: { text: 84, width: 475, box: 56, height: 110, }, 
     },
     ob: { 
-      x: 180, y: 240, ox: -90, oy: -15, scale: 2, width: 650, height: 450,
-      pos: { text: 250, width: 360, box: 90, height: 110, }, lineHeight: 16,
+      x: 180, y: 240, ox: -90, oy: -15, scale: 2, 
+      width: 650, height: 450, lineHeight: 16,
+      pos: { text: 250, width: 360, box: 90, height: 110, }, 
     },
     bdth: { 
-      x: 260, y: 325, ox: 480, oy: 0, scale: 2, width: 930, height: 650,
-      pos: { text: 48, width: 400, box: 18, height: 180, }, lineHeight: 20,
+      x: 375, y: 325, ox: 425, oy: 0, scale: 2, 
+      width: 930, height: 650, lineHeight: 20,
+      pos: { text: 48, width: 400, box: 18, height: 180, }, 
     }
+  }
+
+  const credits = {
+    bdth: "Burning down the house sprites by Victoria"
   }
 
   const characters = {
     default: { col: "black", sprite: "ob_karkat.png", dim: dimentions.default },
     
-    karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob, handle: "KARKAT" },
     rose: { col: "#b536da", sprite: "ob_rose.png", dim: dimentions.ob, handle: "ROSE" },
-    kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
     dave: { col: "#e00707", sprite: "ob_dave.png", dim: dimentions.ob, handle: "DAVE" },
+    karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob, handle: "KARKAT" },
     nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
+    kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
 
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
+    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
