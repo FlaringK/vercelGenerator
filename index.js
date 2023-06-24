@@ -185,7 +185,7 @@ async function genHSimage (req, res) {
       pos: { text: 250, width: 360, box: 90, height: 110, }, 
     },
     bdth: { 
-      x: 375, y: 324, ox: 360, oy: 1, scale: 2, 
+      x: 375, y: 323, ox: 360, oy: 2, scale: 2, 
       width: 930, height: 650, lineHeight: 20,
       pos: { text: 48, width: 400, box: 18, height: 180, }, 
     }
@@ -210,9 +210,9 @@ async function genHSimage (req, res) {
 
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
     bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.ob, handle: "DAVE" },
-    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdthS, handle: "JADE" },
-    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdthS, handle: "KANAYA" },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
