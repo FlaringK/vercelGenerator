@@ -204,6 +204,7 @@ async function genHSimage (req, res) {
     karkat: { col: "#626262", sprite: "ob_karkat.png", dim: dimentions.ob, handle: "KARKAT" },
     nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
     kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
+    vriska: { col: "#005682", sprite: "ab_vriska.png", dim: dimentions.ob, handle: "VRISKA" },
 
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE", credit: credits.bdth },
     bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE", credit: credits.bdth  },
