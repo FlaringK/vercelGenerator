@@ -188,11 +188,12 @@ async function genHSimage (req, res) {
       x: 375, y: 325, ox: 360, oy: 0, scale: 2, 
       width: 930, height: 650, lineHeight: 20,
       pos: { text: 48, width: 400, box: 18, height: 180, }, 
-    },
+      credx: 60, credy: 625
+    }
   }
 
   const credits = {
-    bdth: "Burning down the house sprites by Victoria"
+    bdth: "'Burning Down The House' by Victoria Lacroix\n      https://burningdownthehou.se/"
   }
 
   const characters = {
@@ -204,11 +205,11 @@ async function genHSimage (req, res) {
     nepeta: { col: "#416600", sprite: "ab_nepeta.png", dim: dimentions.ob, handle: "NEPETA" },
     kanaya: { col: "#008141", sprite: "ob_kanaya.png", dim: dimentions.ob, handle: "KANAYA" },
 
-    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE" },
-    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE" },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE" },
-    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE" },
-    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA" },
+    bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE", credit: credits.bdth },
+    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE", credit: credits.bdth  },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE", credit: credits.bdth  },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE", credit: credits.bdth  },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA", credit: credits.bdth  },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
@@ -276,6 +277,13 @@ async function genHSimage (req, res) {
   let sprite = char.dim
 
   ctx.drawImage(faces, 0, sprite.y * face, sprite.x, sprite.y, sprite.ox, sprite.oy, sprite.x * sprite.scale, sprite.y * sprite.scale)
+
+  // Draw credits
+  if (char.credit) {
+    let creds = char.credit.split("\n")
+    ctx.fillText(creds[0], sprite.credx, sprite.credy)
+    ctx.fillText(creds[1], sprite.credx, sprite.credy + sprite.lineHeight)
+  }
 
   // Send Canvas
 	res.send(await canvas.encode("png"));
