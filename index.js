@@ -211,7 +211,7 @@ async function genHSimage (req, res) {
     bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE", credit: credits.bdth  },
     bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE", credit: credits.bdth  },
     bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA", credit: credits.bdth  },
-    bdthKatkat: { col: "#008141", sprite: "bdth_karkat.png", dim: dimentions.bdth, handle: "KARKAT", credit: credits.bdth  },
+    bdthKarkat: { col: "#008141", sprite: "bdth_karkat.png", dim: dimentions.bdth, handle: "KARKAT", credit: credits.bdth  },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
