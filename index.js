@@ -185,7 +185,7 @@ async function genHSimage (req, res) {
       pos: { text: 250, width: 360, box: 90, height: 110, }, 
     },
     bdth: { 
-      x: 375, y: 325, ox: 360, oy: 0, scale: 2, 
+      x: 375, y: 325, ox: 340, oy: 0, scale: 2, 
       width: 930, height: 650, lineHeight: 20,
       pos: { text: 48, width: 400, box: 18, height: 180, }, 
       credx: 60, credy: 625
@@ -193,7 +193,7 @@ async function genHSimage (req, res) {
   }
 
   const credits = {
-    bdth: "'Burning Down The House' by Victoria Lacroix\n      https://burningdownthehou.se/"
+    bdth: "'Burning Down The House' by Victoria Lacroix\n        https://burningdownthehou.se/"
   }
 
   const characters = {
@@ -211,6 +211,7 @@ async function genHSimage (req, res) {
     bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE", credit: credits.bdth  },
     bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE", credit: credits.bdth  },
     bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA", credit: credits.bdth  },
+    bdthKatkat: { col: "#008141", sprite: "bdth_karkat.png", dim: dimentions.bdth, handle: "KARKAT", credit: credits.bdth  },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
