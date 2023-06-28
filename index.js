@@ -207,11 +207,22 @@ async function genHSimage (req, res) {
     vriska: { col: "#005682", sprite: "ab_vriska.png", dim: dimentions.ob, handle: "VRISKA" },
 
     bdthJune: { col: "#0715cd", sprite: "bdth_june.png", dim: dimentions.bdth, handle: "JUNE", credit: credits.bdth },
-    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE", credit: credits.bdth  },
-    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE", credit: credits.bdth  },
-    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE", credit: credits.bdth  },
-    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA", credit: credits.bdth  },
-    bdthKarkat: { col: "#626262", sprite: "bdth_karkat.png", dim: dimentions.bdth, handle: "KARKAT", credit: credits.bdth  },
+    bdthRose: { col: "#b536da", sprite: "bdth_rose.png", dim: dimentions.bdth, handle: "ROSE", credit: credits.bdth },
+    bdthDave: { col: "#e00707", sprite: "bdth_dave.png", dim: dimentions.bdth, handle: "DAVE", credit: credits.bdth },
+    bdthJade: { col: "#4ac925", sprite: "bdth_jade.png", dim: dimentions.bdth, handle: "JADE", credit: credits.bdth },
+    bdthJane: { col: "#00d5f2", sprite: "bdth_jane.png", dim: dimentions.bdth, handle: "JANE", credit: credits.bdth },
+    bdthJake: { col: "#1f9400", sprite: "bdth_jake.png", dim: dimentions.bdth, handle: "JAKE", credit: credits.bdth },
+    bdthRoxy: { col: "#ff6ff2", sprite: "bdth_roxy.png", dim: dimentions.bdth, handle: "ROXY", credit: credits.bdth },
+    bdthDirk: { col: "#f2a400", sprite: "bdth_dirk.png", dim: dimentions.bdth, handle: "DIRK", credit: credits.bdth },
+    bdthAradia: { col: "#a10000", sprite: "bdth_aradia.png", dim: dimentions.bdth, handle: "ARADIA", credit: credits.bdth },
+    bdthTavros: { col: "#a15000", sprite: "bdth_tavros.png", dim: dimentions.bdth, handle: "TAVROS", credit: credits.bdth },
+    bdthSollux: { col: "#a1a100", sprite: "bdth_sollux.png", dim: dimentions.bdth, handle: "SOLLUX", credit: credits.bdth },
+    bdthKarkat: { col: "#626262", sprite: "bdth_karkat.png", dim: dimentions.bdth, handle: "KARKAT", credit: credits.bdth },
+    bdthKanaya: { col: "#008141", sprite: "bdth_kanaya.png", dim: dimentions.bdth, handle: "KANAYA", credit: credits.bdth },
+    bdthTerezi: { col: "#008282", sprite: "bdth_terezi.png", dim: dimentions.bdth, handle: "TEREZI", credit: credits.bdth },
+    
+    bdthCalliope: { col: "#929292", sprite: "bdth_.calliopepng", dim: dimentions.bdth, handle: "CALLIOPE", credit: credits.bdth },
+    bdthDavesprite: { col: "#f2a400", sprite: "bdth_davesprite.png", dim: dimentions.bdth, handle: "DAVESPRITE", credit: credits.bdth },
   }
 
   const text = req.params.text ?? "Wow%2C%20you%20must%27ve%20really%20fucked%20something%20up"
@@ -255,7 +266,7 @@ async function genHSimage (req, res) {
   // Draw main text
   let textTypes = text.split(/#(.*)/s)
 
-  let mainlines = textTypes[0].replace(startReg, "")
+  let mainlines = textTypes[0].replace(startReg, "").trim()
   if (char.handle) {
     mainlines = mainlines.replace(/(\n|^)/g, "$1" + char.handle + ": ")
   }
@@ -269,7 +280,7 @@ async function genHSimage (req, res) {
   ctx.fillStyle = "#000000"
 
   if (textTypes[1]) {
-    let hashLines = splitLines(ctx, "#" + textTypes[1], pos.width)
+    let hashLines = splitLines(ctx, "#" + textTypes[1].trim(), pos.width)
     hashLines.forEach((line, i) => {
       ctx.fillText(line, pos.text, (hashLines.length > 2 ? pos.height + 290 : pos.height + 298) + 16 * i)
     })
